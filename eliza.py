@@ -1,4 +1,5 @@
 import re
+import platform
 from dictionary.ResponseGenerator import ResponseGenerator
 
 # Color for terminal messages
@@ -6,6 +7,9 @@ RED = "\033[91m"
 BLUE = "\033[94m"
 GREEN = "\033[92m"
 END_COLOR = "\033[0m"
+
+if ("windows" in platform.system().lower()):
+	RED = BLUE = GREEN = END_COLOR = ""
 
 # Constants
 EXIT = "exit"
@@ -20,11 +24,11 @@ unhappyTemplate = "Do you think coming here will help you not to be {}?"
 unsure = re.compile(r"(endure|go though|get through|solve)", re.IGNORECASE)
 unsureTemplate = "I am sure you will {} your problems. It is okay to feel this way when you are stressed or if you recently had a loss. Does taking a walk and relaxing sound like a good idea?"
 
-yes = re.compile(r"yes", re.IGNORECASE)
-yesTemplate = "I'm glad we agree!"
-
 problems = re.compile(r"(I (have|encountered) (a |A |an ))(problem|issue)", re.IGNORECASE)
 problemsTemplate = "Can you tell me more about the {}?"
+
+yes = re.compile(r"yes", re.IGNORECASE)
+yesTemplate = "I'm glad we agree!"
 
 # List of regex and responses (third parameter indicates which groups should replace the '{}')
 responseGenerators = []
@@ -60,4 +64,4 @@ while (message != EXIT):
     
     message = str(input("You: "))
 
-print(f"{GREEN}ELIZA:{END_COLOR}Have a nice day. Bye!")
+print(f"{GREEN}ELIZA:{END_COLOR} Have a nice day. Bye!")
