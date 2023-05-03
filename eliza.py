@@ -23,7 +23,7 @@ unsureTemplate = "I am sure you will {} your problems. It is okay to feel this w
 yes = re.compile(r"yes", re.IGNORECASE)
 yesTemplate = "I'm glad we agree!"
 
-problems = re.compile(r"(I have (a |A |an ))(problem|issue)", re.IGNORECASE)
+problems = re.compile(r"(I (have|encountered) (a |A |an ))(problem|issue)", re.IGNORECASE)
 problemsTemplate = "Can you tell me more about the {}?"
 
 # List of regex and responses (third parameter indicates which groups should replace the '{}')
@@ -31,7 +31,7 @@ responseGenerators = []
 responseGenerators.append(ResponseGenerator(depressedSadTemplate, depressedSad, [2]))
 responseGenerators.append(ResponseGenerator(unhappyTemplate, unhappy, [2]))
 responseGenerators.append(ResponseGenerator(unsureTemplate, unsure, [1]))
-responseGenerators.append(ResponseGenerator(problemsTemplate, problems, [3]))
+responseGenerators.append(ResponseGenerator(problemsTemplate, problems, [4]))
 responseGenerators.append(ResponseGenerator(yesTemplate, yes, []))
 
 print(f"""
@@ -59,3 +59,5 @@ while (message != EXIT):
         print(f"{RED}ELIZA:{END_COLOR} I don't think I understood that correctly...")
     
     message = str(input("You: "))
+
+print(f"{GREEN}ELIZA:{END_COLOR}Have a nice day. Bye!")
