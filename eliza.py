@@ -11,6 +11,9 @@ END_COLOR = "\033[0m"
 if ("windows" in platform.system().lower()):
 	RED = BLUE = GREEN = END_COLOR = ""
 
+# Styling
+WIDTH_SPACE = "       "
+
 # Constants
 EXIT = "exit"
 
@@ -21,8 +24,8 @@ depressedSadTemplate = "I'm sorry you feel {}. Is there anything you want to tel
 unhappy = re.compile(r"(I'm |im |I am |feel )(unhappy)", re.IGNORECASE)
 unhappyTemplate = "Do you think coming here will help you not to be {}?"
 
-unsure = re.compile(r"(endure|go though|get through|solve)", re.IGNORECASE)
-unsureTemplate = "I am sure you will {} your problems. It is okay to feel this way when you are stressed or if you recently had a loss. Does taking a walk and relaxing sound like a good idea?"
+unsure = re.compile(r"(((I do not|I don't|I dont) (think|believe|feel certain|feel sure|feel confident))|(I am not sure|I am unsure|I'm not sure|I'm unsure) (that)? I (will(be able to)?|can|am able to)) (endure|go through|get through|solve)", re.IGNORECASE)
+unsureTemplate = "I am sure you will {} your problems.\n" + WIDTH_SPACE + "It is okay to feel this way when you are stressed or if you recently had a loss.\n" + WIDTH_SPACE + "Does taking a walk and relaxing sound like a good idea?"
 
 problems = re.compile(r"(I (have|encountered) (a |A |an ))(problem|issue)", re.IGNORECASE)
 problemsTemplate = "Can you tell me more about the {}?"
@@ -34,7 +37,7 @@ yesTemplate = "I'm glad we agree!"
 responseGenerators = []
 responseGenerators.append(ResponseGenerator(depressedSadTemplate, depressedSad, [2]))
 responseGenerators.append(ResponseGenerator(unhappyTemplate, unhappy, [2]))
-responseGenerators.append(ResponseGenerator(unsureTemplate, unsure, [1]))
+responseGenerators.append(ResponseGenerator(unsureTemplate, unsure, [9]))
 responseGenerators.append(ResponseGenerator(problemsTemplate, problems, [4]))
 responseGenerators.append(ResponseGenerator(yesTemplate, yes, []))
 
@@ -51,7 +54,7 @@ print(f"A simple chatbot using {BLUE}regex{END_COLOR} for {BLUE}Theory of Calcul
 
 
 message = str(input("You: "))
-while (message != EXIT):
+while (message.lower() != EXIT):
     isMatched = False
     for generator in responseGenerators:
         if (generator.matches(message) and not isMatched):
