@@ -20,38 +20,46 @@ REOPENED = "1"
 
 # Define the types of sentences ELIZA can understand
 hello = re.compile(r"^(Hell(o)+|H(i)+|He(y)+).*$", re.IGNORECASE)
-helloTemplate = ""
+helloRes = ""
 with open("history.eliza", "a+") as f:
 	f.seek(0) # we position a+ stream at the start of file
 	content = f.readline()
-	helloTemplate = "Hello! Good to see you again."
+	helloRes = "Hello! Good to see you again."
 	if (content != REOPENED):
-		helloTemplate = "Hello!"
+		helloRes = "Hello!"
 		f.write(REOPENED)
+
+notFeelingIt = re.compile(r"I('m| am) not ((feeling )?(it|good|happy|amazing|great|))", re.IGNORECASE)
+notFeelingItRes = "Why are you not feeling {}?"	
+	
+elaborateFurther = re.compile(r"((Because |Because of my |Because my |My )).* (ex|husband|wife|boyfriend|girlfriend|partner|lover|date|(best )?friend(s?)|dad|father|mom|mother|brother|sister|bro|sis|cousin)( (is)|(does not|doesnt|doesn't|is not able to|isnt able to|isnt able to))?", re.IGNORECASE)
+elaborateFurtherRes	= "How is your relationship with your {} in general?"
 	
 depressedSad = re.compile(r"(I'm |im |I am |feel )(depressed|sad)", re.IGNORECASE)
-depressedSadTemplate = "I'm sorry you feel {}. Is there anything you want to tell me?"
+depressedSadRes = "I'm sorry you feel {}. I'm here for you.\n" + WIDTH_SPACE + "Is there anything you want to tell me?"
 
 unhappy = re.compile(r"(I'm |im |I am |feel )(still |so |really )?(unhappy)", re.IGNORECASE)
-unhappyTemplate = "Do you think coming here will help you not to be {}?"
+unhappyRes = "Do you think coming here will help you not to be {}?"
 
 unsure = re.compile(r"(((I do not|I don't|I dont|I) (think|believe|feel certain|feel sure|feel confident|feel like))|(I am not sure|I am unsure|I'm not sure|I'm unsure))( that)? I (will(( not)? be able to)?|can|am able to) (endure|go through|get through|solve)", re.IGNORECASE)
-unsureTemplate = "I am sure you will {} your problems.\n" + WIDTH_SPACE + "It is okay to feel this way when you are stressed or if you recently had a loss.\n" + WIDTH_SPACE + "Does taking a walk and relaxing sound like a good idea?"
+unsureRes = "I am sure you will {} your problems.\n" + WIDTH_SPACE + "It is okay to feel this way when you are stressed or if you recently had a loss.\n" + WIDTH_SPACE + "Does taking a walk and relaxing sound like a good idea?"
 
 problems = re.compile(r"(I (have|encountered) (a |A |an ))(problem|issue)", re.IGNORECASE)
-problemsTemplate = "Can you tell me more about the {}?"
+problemsRes = "Can you tell me more about the {}?"
 
 yes = re.compile(r"^(Yes)$", re.IGNORECASE)
-yesTemplate = "I'm glad we agree!"
+yesRes = "I'm glad we agree!"
 
-# List of regex and responses (third parameter indicates which groups should replace the '{}')
+# List of regex and responses (third parameter indicates which groups should replace the '{}' in order)
 responseGenerators = []
-responseGenerators.append(ResponseGenerator(helloTemplate, hello, []))
-responseGenerators.append(ResponseGenerator(depressedSadTemplate, depressedSad, [2]))
-responseGenerators.append(ResponseGenerator(unhappyTemplate, unhappy, [3]))
-responseGenerators.append(ResponseGenerator(unsureTemplate, unsure, [10]))
-responseGenerators.append(ResponseGenerator(problemsTemplate, problems, [4]))
-responseGenerators.append(ResponseGenerator(yesTemplate, yes, []))
+responseGenerators.append(ResponseGenerator(notFeelingItRes, notFeelingIt, [4]))
+responseGenerators.append(ResponseGenerator(elaborateFurtherRes, elaborateFurther, [3]))
+responseGenerators.append(ResponseGenerator(helloRes, hello, []))
+responseGenerators.append(ResponseGenerator(depressedSadRes, depressedSad, [2]))
+responseGenerators.append(ResponseGenerator(unhappyRes, unhappy, [3]))
+responseGenerators.append(ResponseGenerator(unsureRes, unsure, [10]))
+responseGenerators.append(ResponseGenerator(problemsRes, problems, [4]))
+responseGenerators.append(ResponseGenerator(yesRes, yes, []))
 
 print(f"""
       
