@@ -41,7 +41,7 @@ depressedSadRes = "I'm sorry you feel {}. I'm here for you.\n" + WIDTH_SPACE + "
 unhappy = re.compile(r"(I'm |im |I am |feel )(still |so |really )?(unhappy)", re.IGNORECASE)
 unhappyRes = "Do you think coming here will help you not to be {}?"
 
-unsure = re.compile(r"(((I do not|I don't|I dont|I) (think|believe|feel certain|feel sure|feel confident|feel like))|(I am not sure|I am unsure|I'm not sure|I'm unsure))( that)? I (will(( not)? be able to)?|can|am able to) (endure|go through|get through|solve)", re.IGNORECASE)
+unsure = re.compile(r"(((I do not|I don't|I dont|I) (think|believe|feel certain|feel sure|feel confident|feel like))|(I am not sure|I am unsure|I'm not sure|I'm unsure))( that)? I( will(( not)? be able to)?| can| am able to|'ll|ll) (endure|go through|get through|solve)", re.IGNORECASE)
 unsureRes = "I am sure you will {} your problems.\n" + WIDTH_SPACE + "It is okay to feel this way when you are stressed or if you recently had a loss.\n" + WIDTH_SPACE + "Does taking a walk and relaxing sound like a good idea?"
 
 problems = re.compile(r"(I (have|encountered) (a |A |an ))(problem|issue)", re.IGNORECASE)
