@@ -30,7 +30,7 @@ with open("opened.eliza", "a+") as f:
 		helloRes = "Hello! How are you feeling today?"
 		f.write(REOPENED)
 
-notFeelingIt = re.compile(r"I('m| am) not ((feeling )?(it|good|happy|amazing|great|))", re.IGNORECASE)
+notFeelingIt = re.compile(r"not ((feeling )?(it|good|happy|amazing|great|))", re.IGNORECASE)
 notFeelingItRes = "Why are you not feeling {}?"	
 	
 elaborateFurther = re.compile(r"((Because |Because of my |Because my |My )).* (ex|husband|wife|boyfriend|girlfriend|partner|lover|date|(best )?friend(s?)|dad|father|mom|mother|brother|sister|bro|sis|cousin)( (is)|(does not|doesnt|doesn't|is not able to|isnt able to|isnt able to))?", re.IGNORECASE)
@@ -53,7 +53,7 @@ yesRes = "I'm glad we agree!"
 
 # List of regex and responses (third parameter indicates which groups should replace the '{}' in order)
 responseGenerators = []
-responseGenerators.append(ResponseGenerator(notFeelingItRes, notFeelingIt, [4]))
+responseGenerators.append(ResponseGenerator(notFeelingItRes, notFeelingIt, [3]))
 responseGenerators.append(ResponseGenerator(elaborateFurtherRes, elaborateFurther, [3]))
 responseGenerators.append(ResponseGenerator(helloRes, hello, []))
 responseGenerators.append(ResponseGenerator(depressedSadRes, depressedSad, [2]))
@@ -89,4 +89,4 @@ while (message.lower() != EXIT and message.lower() != BYE):
     
     message = str(input(f"{BLUE}You:{END_COLOR}   "))
 
-print(f"{GREEN}ELIZA:{END_COLOR} Have a nice day. Bye!")
+print(f"{GREEN}ELIZA:{END_COLOR} Looking forward to talking to you again.\n" + WIDTH_SPACE + "Have a nice day. Bye!")
