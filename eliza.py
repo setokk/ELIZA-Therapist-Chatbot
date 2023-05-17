@@ -8,8 +8,8 @@ BLUE = "\033[94m"
 GREEN = "\033[92m"
 END_COLOR = "\033[0m"
 
-#if ("windows" in platform.system().lower()):
-#	RED = BLUE = GREEN = END_COLOR = ""
+if ("windows" in platform.system().lower()):
+	RED = BLUE = GREEN = END_COLOR = ""
 
 # Styling
 WIDTH_SPACE = "       "
@@ -22,19 +22,19 @@ REOPENED = "1"
 # Define the types of sentences ELIZA can understand
 hello = re.compile(r"^(Hell(o)+|H(i)+|He(y)+).*$", re.IGNORECASE)
 helloRes = ""
-with open("history.eliza", "a+") as f:
+with open("opened.eliza", "a+") as f:
 	f.seek(0) # we position a+ stream at the start of file
 	content = f.readline()
-	helloRes = "Hello! Good to see you again."
+	helloRes = "Hello! Good to see you again.\n" + WIDTH_SPACE + "How are you feeling today?"
 	if (content != REOPENED):
-		helloRes = "Hello!"
+		helloRes = "Hello! How are you feeling today?"
 		f.write(REOPENED)
 
 notFeelingIt = re.compile(r"I('m| am) not ((feeling )?(it|good|happy|amazing|great|))", re.IGNORECASE)
 notFeelingItRes = "Why are you not feeling {}?"	
 	
 elaborateFurther = re.compile(r"((Because |Because of my |Because my |My )).* (ex|husband|wife|boyfriend|girlfriend|partner|lover|date|(best )?friend(s?)|dad|father|mom|mother|brother|sister|bro|sis|cousin)( (is)|(does not|doesnt|doesn't|is not able to|isnt able to|isnt able to))?", re.IGNORECASE)
-elaborateFurtherRes	= "How is your relationship with your {} in general?"
+elaborateFurtherRes	= "In what way did your {} make you feel bad?"
 	
 depressedSad = re.compile(r"(I'm |im |I am |feel )(depressed|sad)", re.IGNORECASE)
 depressedSadRes = "I'm sorry you feel {}. I'm here for you.\n" + WIDTH_SPACE + "Is there anything you want to tell me?"
@@ -82,6 +82,7 @@ while (message.lower() != EXIT and message.lower() != BYE):
             response = generator.generateResponse()
             print(f"{GREEN}ELIZA:{END_COLOR} {response}")
             isMatched = True
+            break
             
     if (not isMatched):
         print(f"{RED}ELIZA:{END_COLOR} I don't think I understood that correctly...")
