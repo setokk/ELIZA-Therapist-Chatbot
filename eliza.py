@@ -8,14 +8,15 @@ BLUE = "\033[94m"
 GREEN = "\033[92m"
 END_COLOR = "\033[0m"
 
-if ("windows" in platform.system().lower()):
-	RED = BLUE = GREEN = END_COLOR = ""
+#if ("windows" in platform.system().lower()):
+#	RED = BLUE = GREEN = END_COLOR = ""
 
 # Styling
 WIDTH_SPACE = "       "
 
 # Constants
-EXIT = "bye"
+EXIT = "exit"
+BYE = "bye"
 REOPENED = "1"
 
 # Define the types of sentences ELIZA can understand
@@ -47,7 +48,7 @@ unsureRes = "I am sure you will {} your problems.\n" + WIDTH_SPACE + "It is okay
 problems = re.compile(r"(I (have|encountered) (a |A |an ))(problem|issue)", re.IGNORECASE)
 problemsRes = "Can you tell me more about the {}?"
 
-yes = re.compile(r"^(Yes)$", re.IGNORECASE)
+yes = re.compile(r"^((Yes+(!+)?)( it does+(!+)?)?)$", re.IGNORECASE)
 yesRes = "I'm glad we agree!"
 
 # List of regex and responses (third parameter indicates which groups should replace the '{}' in order)
@@ -74,7 +75,7 @@ print(f"A simple chatbot using {BLUE}regex{END_COLOR} for {BLUE}Theory of Calcul
 
 
 message = str(input(f"{BLUE}You:{END_COLOR}   "))
-while (message.lower() != EXIT):
+while (message.lower() != EXIT and message.lower() != BYE):
     isMatched = False
     for generator in responseGenerators:
         if (generator.matches(message) and not isMatched):
