@@ -30,11 +30,17 @@ with open("opened.eliza", "a+") as f:
 		helloRes = "Hello! How are you feeling today?"
 		f.write(REOPENED)
 
-notFeelingIt = re.compile(r"not ((feeling )?(it|good|happy|amazing|great|))", re.IGNORECASE)
+notFeelingIt = re.compile(r"not ((feeling )?(it|good|happy|amazing|great))", re.IGNORECASE)
 notFeelingItRes = "Why are you not feeling {}?"	
+
+badFeeling = re.compile(r"(bad|worse|disgusting|disgusted)", re.IGNORECASE)
+badFeelingRes = "Why are you feeling {}?"
 	
 elaborateFurther = re.compile(r"((Because |Because of my |Because my |My )).* (ex|husband|wife|boyfriend|girlfriend|partner|lover|date|(best )?friend(s?)|dad|father|mom|mother|brother|sister|bro|sis|cousin)( (is)|(does not|doesnt|doesn't|is not able to|isnt able to|isnt able to))?", re.IGNORECASE)
 elaborateFurtherRes	= "In what way did your {} make you feel bad?"
+
+furtherElaboration = re.compile(r"(he|she|they) (((got me|made me) (mad|angry)))", re.IGNORECASE)
+furtherElaborationRes = "There might have been a misunderstanding between you.\n" + WIDTH_SPACE + "You should clear your mind and talk to them again later" 
 	
 depressedSad = re.compile(r"(I'm |im |I am |feel )(depressed|sad)", re.IGNORECASE)
 depressedSadRes = "I'm sorry you feel {}. I'm here for you.\n" + WIDTH_SPACE + "Is there anything you want to tell me?"
@@ -48,18 +54,24 @@ unsureRes = "I am sure you will {} your problems.\n" + WIDTH_SPACE + "It is okay
 problems = re.compile(r"(I (have|encountered) (a |A |an ))(problem|issue)", re.IGNORECASE)
 problemsRes = "Can you tell me more about the {}?"
 
+agree = re.compile(r"(I agree)|(agreed)|(we agree)", re.IGNORECASE)
+agreeRes = "I'm glad we agree!"
+
 yes = re.compile(r"^((Yes+(!+)?)( it does+(!+)?)?)$", re.IGNORECASE)
-yesRes = "I'm glad we agree!"
+yesRes = "Wonderful!"
 
 # List of regex and responses (third parameter indicates which groups should replace the '{}' in order)
 responseGenerators = []
 responseGenerators.append(ResponseGenerator(notFeelingItRes, notFeelingIt, [3]))
+responseGenerators.append(ResponseGenerator(furtherElaborationRes, furtherElaboration, []))
+responseGenerators.append(ResponseGenerator(badFeelingRes, badFeeling, [1]))
 responseGenerators.append(ResponseGenerator(elaborateFurtherRes, elaborateFurther, [3]))
 responseGenerators.append(ResponseGenerator(helloRes, hello, []))
 responseGenerators.append(ResponseGenerator(depressedSadRes, depressedSad, [2]))
 responseGenerators.append(ResponseGenerator(unhappyRes, unhappy, [3]))
 responseGenerators.append(ResponseGenerator(unsureRes, unsure, [10]))
 responseGenerators.append(ResponseGenerator(problemsRes, problems, [4]))
+responseGenerators.append(ResponseGenerator(agreeRes, agree, []))
 responseGenerators.append(ResponseGenerator(yesRes, yes, []))
 
 print(f"""
