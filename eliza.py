@@ -40,6 +40,7 @@ elaborateFurther = re.compile(r"((Because |Because of my |Because my |My )).* (e
 elaborateFurtherRes	= "In what way did your {} make you feel bad?"
 
 furtherElaboration = re.compile(r"(he|she|they) (((got me|made me) (mad|angry)))", re.IGNORECASE)
+oFurtherElaboration = re.compile(r"(he|she|it|the|they).* (makes me|made me|did|are|is|are doing|is doing|are behaving|is behaving)", re.IGNORECASE)
 furtherElaborationRes = "There might have been a misunderstanding between you.\n" + WIDTH_SPACE + "You should clear your mind and talk to them again later" 
 	
 depressedSad = re.compile(r"(I'm |im |I am |feel )(depressed|sad)", re.IGNORECASE)
@@ -57,6 +58,9 @@ problemsRes = "Can you tell me more about the {}?"
 agree = re.compile(r"(I agree)|(agreed)|(we agree)", re.IGNORECASE)
 agreeRes = "I'm glad we agree!"
 
+thankYou = re.compile(r"(Thank you)|(Thanks)|(Thank)", re.IGNORECASE)
+thankYouRes = "You're welcome!"
+
 yes = re.compile(r"^((Yes+(!+)?)( it does+(!+)?)?)$", re.IGNORECASE)
 yesRes = "Wonderful!"
 
@@ -64,6 +68,7 @@ yesRes = "Wonderful!"
 responseGenerators = []
 responseGenerators.append(ResponseGenerator(notFeelingItRes, notFeelingIt, [3]))
 responseGenerators.append(ResponseGenerator(furtherElaborationRes, furtherElaboration, []))
+responseGenerators.append(ResponseGenerator(furtherElaborationRes, oFurtherElaboration, []))
 responseGenerators.append(ResponseGenerator(badFeelingRes, badFeeling, [1]))
 responseGenerators.append(ResponseGenerator(elaborateFurtherRes, elaborateFurther, [3]))
 responseGenerators.append(ResponseGenerator(helloRes, hello, []))
@@ -72,6 +77,7 @@ responseGenerators.append(ResponseGenerator(unhappyRes, unhappy, [3]))
 responseGenerators.append(ResponseGenerator(unsureRes, unsure, [10]))
 responseGenerators.append(ResponseGenerator(problemsRes, problems, [4]))
 responseGenerators.append(ResponseGenerator(agreeRes, agree, []))
+responseGenerators.append(ResponseGenerator(thankYouRes, thankYou, []))
 responseGenerators.append(ResponseGenerator(yesRes, yes, []))
 
 print(f"""
