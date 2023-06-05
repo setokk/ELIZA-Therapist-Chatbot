@@ -8,8 +8,8 @@ BLUE = "\033[94m"
 GREEN = "\033[92m"
 END_COLOR = "\033[0m"
 
-if ("windows" in platform.system().lower()):
-	RED = BLUE = GREEN = END_COLOR = ""
+#if ("windows" in platform.system().lower()):
+#	RED = BLUE = GREEN = END_COLOR = ""
 
 # Styling
 WIDTH_SPACE = "       "
@@ -71,7 +71,6 @@ responseGenerators.append(ResponseGenerator(furtherElaborationRes, furtherElabor
 responseGenerators.append(ResponseGenerator(furtherElaborationRes, oFurtherElaboration, []))
 responseGenerators.append(ResponseGenerator(badFeelingRes, badFeeling, [1]))
 responseGenerators.append(ResponseGenerator(elaborateFurtherRes, elaborateFurther, [3]))
-responseGenerators.append(ResponseGenerator(helloRes, hello, []))
 responseGenerators.append(ResponseGenerator(depressedSadRes, depressedSad, [2]))
 responseGenerators.append(ResponseGenerator(unhappyRes, unhappy, [3]))
 responseGenerators.append(ResponseGenerator(unsureRes, unsure, [10]))
@@ -79,6 +78,7 @@ responseGenerators.append(ResponseGenerator(problemsRes, problems, [4]))
 responseGenerators.append(ResponseGenerator(agreeRes, agree, []))
 responseGenerators.append(ResponseGenerator(thankYouRes, thankYou, []))
 responseGenerators.append(ResponseGenerator(yesRes, yes, []))
+responseGenerators.append(ResponseGenerator(helloRes, hello, []))
 
 print(f"""
       
