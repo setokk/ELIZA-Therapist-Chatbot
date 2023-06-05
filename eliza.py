@@ -8,8 +8,8 @@ BLUE = "\033[94m"
 GREEN = "\033[92m"
 END_COLOR = "\033[0m"
 
-#if ("windows" in platform.system().lower()):
-#	RED = BLUE = GREEN = END_COLOR = ""
+if ("windows" in platform.system().lower()):
+	RED = BLUE = GREEN = END_COLOR = ""
 
 # Styling
 WIDTH_SPACE = "       "
